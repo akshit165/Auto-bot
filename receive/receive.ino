@@ -11,29 +11,26 @@ void setup() {
 }
 void loop() {
 
+     digitalWrite(2,HIGH);
+     digitalWrite(4,HIGH);
+
   if (Serial.available() > 0) {
 
   incomingByte = Serial.readStringUntil('\n');
-
     if (incomingByte == "left") {
       Serial.write("Going Left");
-      digitalWrite(4,HIGH);
-      delay(2000);
       digitalWrite(4,LOW);
+      digitalWrite(2,HIGH);
+      delay(2000);
+      digitalWrite(2,LOW);
     }
 
     else if (incomingByte == "right") {
       Serial.write("Going Right");
-      digitalWrite(2,HIGH);
+      digitalWrite(2,LOW);
+      digitalWrite(4,HIGH);
       delay(2000);
-      digitalWrite(2,LOW);     
-    }
-
-    else{
-
-     digitalWrite(2,HIGH);
-     digitalWrite(4,HIGH);
-
+      digitalWrite(4,LOW);     
     }
 
   }
