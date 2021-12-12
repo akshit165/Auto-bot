@@ -5,8 +5,8 @@ import cv2
 import time
 
 # get the webcam:  
-cap = cv2.VideoCapture(cv2.CAP_V4L2)
-
+#cap = cv2.VideoCapture(cv2.CAP_V4L2)
+cap = cv2.VideoCapture(0)
 cap.set(3,640)
 cap.set(4,480)
 #160.0 x 120.0
@@ -22,9 +22,9 @@ def decode(im) :
     # Find barcodes and QR codes
     decodedObjects = pyzbar.decode(im)
     # Print results
-    for obj in decodedObjects:
-        print('Type : ', obj.type)
-        print('Data : ', obj.data,'\n')     
+    # for obj in decodedObjects:
+    #     print('Type : ', obj.type)
+    #     print('Data : ', obj.data.decode('utf-8'),'\n')     
     return decodedObjects
 
 
@@ -60,9 +60,9 @@ while(cap.isOpened()):
         print(x, y)
 
         print('Type : ', decodedObject.type)
-        print('Data : ', decodedObject.data,'\n')
+        print('Data : ', decodedObject.data.decode('utf-8'),'\n')
 
-        barCode = str(decodedObject.data)
+        barCode = str(decodedObject.data.decode('utf-8'))
         cv2.putText(frame, barCode, (x, y), font, 1, (0,255,255), 2, cv2.LINE_AA)
                
     # Display the resulting frame
