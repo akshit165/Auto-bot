@@ -6,8 +6,8 @@ import numpy as np
 import cv2
 
 # get the webcam:
-# cap = cv2.VideoCapture(cv2.CAP_V4L2)
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(cv2.CAP_V4L2)
+#cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 # 160.0 x 120.0
@@ -19,8 +19,8 @@ cap.set(4, 480)
 # 1280.0 x 1024.0
 time.sleep(2)
 
-serialcomm = serial.Serial('COM3', 9600)
-serialcomm.timeout = 0.8
+serialcomm = serial.Serial('/dev/ttyACM0', 9600)
+serialcomm.timeout = 1
 
 
 def decode(im):
@@ -61,7 +61,7 @@ while (cap.isOpened()):
 
         x = decodedObject.rect.width
         y = decodedObject.rect.height
-        print(x, y)
+        #print(x, y)
 
         #print('Type : ', decodedObject.type)
         # print('Data : ', decodedObject.data.decode('utf-8'), '\n')
@@ -69,7 +69,7 @@ while (cap.isOpened()):
         # cv2.putText(frame, barCode, (x, y), font, 1, (0, 255, 255), 2, cv2.LINE_AA)
 
 
-        if x & y > 180:
+        if x & y > 100:
             #print('Type : ', decodedObject.type)
             print('Data : ', decodedObject.data.decode('utf-8'), '\n')
 
@@ -77,9 +77,9 @@ while (cap.isOpened()):
             cv2.putText(frame, barCode, (x, y), font, 1, (0, 255, 255), 2, cv2.LINE_AA)
             i = barCode
             serialcomm.write(i.encode())
-            time.sleep(0.5)
+            time.sleep(1.5)
             print(serialcomm.readline().decode('ascii'))   
-
+            
     # Display the resulting frame
     cv2.imshow('frame', frame)
     key = cv2.waitKey(1)

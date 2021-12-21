@@ -11,8 +11,6 @@ void setup() {
 }
 void loop() {
 
-     digitalWrite(2,HIGH);
-     digitalWrite(4,HIGH);
 
   if (Serial.available() > 0) {
 
@@ -23,6 +21,7 @@ void loop() {
       digitalWrite(2,HIGH);
       delay(2000);
       digitalWrite(2,LOW);
+      delay(1000);
     }
 
     else if (incomingByte == "right") {
@@ -30,7 +29,8 @@ void loop() {
       digitalWrite(2,LOW);
       digitalWrite(4,HIGH);
       delay(2000);
-      digitalWrite(4,LOW);     
+      digitalWrite(4,LOW);   
+      delay(1000);  
     }
 
   }
